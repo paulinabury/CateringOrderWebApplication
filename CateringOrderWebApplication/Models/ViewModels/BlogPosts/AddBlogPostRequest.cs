@@ -1,12 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CateringOrderWebApplication.Models.DomainModels.Tags;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace CateringOrderWebApplication.Models.DomainModels
+namespace CateringOrderWebApplication.Models.ViewModels.BlogPosts
 {
-    public class BlogPost
+    public class AddBlogPostRequest
     {
-        [Key]
-        public Guid Id { get; set; }
-
         public string Heading { get; set; }
         public string PageTitle { get; set; }
         public string Contet { get; set; }
@@ -16,6 +14,11 @@ namespace CateringOrderWebApplication.Models.DomainModels
         public DateTime PublishedDate { get; set; }
         public string Author { get; set; }
         public bool IsVisible { get; set; }
-        public ICollection<Tag> Tags { get; set; }
+
+        //display tags
+        public IEnumerable<SelectListItem> Tags { get; set; }
+
+        //collect tag
+        public string[] SelectedTags { get; set; } = Array.Empty<string>();
     }
 }

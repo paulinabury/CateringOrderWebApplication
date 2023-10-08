@@ -1,8 +1,8 @@
-﻿using CateringOrderWebApplication.Models.DomainModels;
+﻿using CateringOrderWebApplication.Models.DomainModels.Tags;
 
 namespace CateringOrderWebApplication.Repositories
 {
-	public interface ITagRepository
+    public interface ITagRepository
 	{
 		Task<IEnumerable<Tag>> GetAllAsync();
 

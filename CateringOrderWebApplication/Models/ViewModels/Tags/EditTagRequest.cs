@@ -1,4 +1,4 @@
-﻿namespace CateringOrderWebApplication.Models.ViewModels
+﻿namespace CateringOrderWebApplication.Models.ViewModels.Tags
 {
     public class EditTagRequest
     {

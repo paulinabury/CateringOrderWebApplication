@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using CateringOrderWebApplication.Models.DomainModels.BlogPosts;
 
-namespace CateringOrderWebApplication.Models.DomainModels
+namespace CateringOrderWebApplication.Models.DomainModels.Tags
 {
     public class Tag
     {

@@ -1,4 +1,5 @@
-﻿using CateringOrderWebApplication.Models.DomainModels;
+﻿using CateringOrderWebApplication.Models.DomainModels.BlogPosts;
+using CateringOrderWebApplication.Models.DomainModels.Tags;
 using Microsoft.EntityFrameworkCore;
 
 namespace CateringOrderWebApplication.Data

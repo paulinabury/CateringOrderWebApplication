@@ -1,24 +1,36 @@
-﻿@model List<CateringOrderWebApplication.Models.DomainModels.BlogPost>;
+﻿@model IEnumerable<CateringOrderWebApplication.Models.DomainModels.BlogPosts.BlogPost>;
 
-@foreach (var post in Model.Where(post => @post.IsVisible))
-{
+<div class="bg-secondary bg-opacity-10 py-2">
     <div class="container">
-        <article>
-            <h1>@post.Heading</h1>
-            <h2>@post.PageTitle</h2>
-            <p>@post.ShortDescription</p>
-
-            <main>
-                <p>@post.Contet</p>
-                <hr />
-                <a href="@post.UrlHandle"></a>
-                <p>@post.Author</p>
-                <p>@post.PublishedDate.ToShortDateString()</p>
-            </main>
-            
-            @* TODO tags*@
-
-        </article>
-
+        <h1>Blog posts</h1>
     </div>
-}
+</div>
+
+<div class="container py-5">
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Heading</td>
+                <td>Tags</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var blogPost in @Model)
+            {
+                <tr>
+                    <td>@blogPost.Id</td>
+                    <td>@blogPost.Heading</td>
+                    <td>
+                        <div class="d-flex">
+                            @foreach (var tag in blogPost.Tags)
+                            {
+                                <span class="badge bg-secondary me-1">@tag.Name</span>
+                            }
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

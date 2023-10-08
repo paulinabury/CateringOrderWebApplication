@@ -1,8 +1,4 @@
-﻿@using CateringOrderWebApplication.Models.ViewModels;
-@model AddBlogPostRequest;
-
-@{
-}
+﻿@model CateringOrderWebApplication.Models.ViewModels.BlogPosts.AddBlogPostRequest;
 
 <div class="bg-secondary bg-opacity-10 py-2">
     <div class="container">
@@ -10,50 +6,69 @@
     </div>
 </div>
 
-
 <div class="container py-5">
     <form method="post">
         <div class="mb-3">
             <label class="form-label">Heading</label>
-            <input type="text" class="form-control" id="name" asp-for="Heading" />
-        </div>
-        
-        <div class="mb-3">
-            <label class="form-label">PageTitle</label>
-            <input type="text" class="form-control" id="name" asp-for="PageTitle" />
-        </div>
-        
-        <div class="mb-3">
-            <label class="form-label">Contet</label>
-            <input type="text" class="form-control" id="name" asp-for="Contet" />
-        </div>
-        
-        <div class="mb-3">
-            <label class="form-label">Short Description</label>
-            <input type="text" class="form-control" id="name" asp-for="ShortDescription" />
-        </div>
-        
-        <div class="mb-3">
-            <label class="form-label">Upload image</label>
-            <input type="image" class="form-control" id="name" asp-for="FeaturedImageUrl" />
+            <input type="text" class="form-control" id="heading" asp-for="Heading" />
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Url Handle</label>
-            <input type="text" class="form-control" id="name" asp-for="UrlHandle" />
+            <label class="form-label">Page title</label>
+            <input type="text" class="form-control" id="pageTitle" asp-for="PageTitle" />
         </div>
-        
+
+        <div class="mb-3">
+            <label class="form-label">Content</label>
+            <textarea class="form-control" id="content" asp-for="Contet"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Short description</label>
+            <input type="text" class="form-control" id="shortDescription" asp-for="ShortDescription" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Featured image URL</label>
+            <input type="text" class="form-control" id="deaturedImageUrl" asp-for="FeaturedImageUrl" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">URL handle</label>
+            <input type="text" class="form-control" id="urlHandle" asp-for="UrlHandle" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Published date</label>
+            <input type="date" class="form-control" id="pusblishedDate" asp-for="PublishedDate" />
+        </div>
+
         <div class="mb-3">
             <label class="form-label">Author</label>
-            <input type="text" class="form-control" id="name" asp-for="Author" />
+            <input type="text" class="form-control" id="author" asp-for="Author" />
         </div>
 
-        @* TODO foreach through all Tags and add selected ones to Model  *@
-        
 
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="isVisible" checked asp-for="IsVisible">
+            <label class="form-check-label">
+                Is visible?
+            </label>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Tags</label>
+            <select class="form-select"
+                    asp-items="@Model.Tags"
+                    asp-for="@Model.SelectedTags"></select>
+        </div>
+
+
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-dark">
+                Save
+            </button>
+        </div>
     </form>
-
-    <div class="mb-3">
-        <button type="submit" class="btn btn-dark" asp-action="AddBlogPost">Save</button>
-    </div>
 </div>

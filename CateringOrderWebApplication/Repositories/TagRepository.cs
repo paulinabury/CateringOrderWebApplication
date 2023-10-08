@@ -1,10 +1,10 @@
 ﻿using CateringOrderWebApplication.Data;
-using CateringOrderWebApplication.Models.DomainModels;
+using CateringOrderWebApplication.Models.DomainModels.Tags;
 using Microsoft.EntityFrameworkCore;
 
 namespace CateringOrderWebApplication.Repositories
 {
-	public class TagRepository : ITagRepository
+    public class TagRepository : ITagRepository
 	{
 		private readonly CateringOrderDbContext _dbContext;
 
