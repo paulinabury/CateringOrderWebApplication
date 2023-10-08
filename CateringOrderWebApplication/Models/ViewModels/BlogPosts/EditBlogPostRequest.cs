@@ -1,10 +1,10 @@
-﻿using CateringOrderWebApplication.Models.DomainModels.Tags;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CateringOrderWebApplication.Models.ViewModels.BlogPosts
 {
-    public class AddBlogPostRequest
+    public class EditBlogPostRequest
     {
+        public Guid Id { get; set; }
         public string Heading { get; set; }
         public string PageTitle { get; set; }
         public string Contet { get; set; }

@@ -79,4 +79,99 @@ public class AdminBlogPostController : Controller
         var blogPosts = await _blogPostRepository.GetAllAsync();
         return View(blogPosts);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> Edit(Guid id)
+    {
+        // Get the result from repo
+        var blogPost = await _blogPostRepository.GetAsync(id);
+        var tagsDomainModel = await _tagRepository.GetAllAsync();
+        if (blogPost != null)
+        {
+            //map domain model to the view model
+            var viewModel = new EditBlogPostRequest
+            {
+                Id = blogPost.Id,
+                Heading = blogPost.Heading,
+                PageTitle = blogPost.PageTitle,
+                Contet = blogPost.Contet,
+                Author = blogPost.Author,
+                FeaturedImageUrl = blogPost.FeaturedImageUrl,
+                UrlHandle = blogPost.UrlHandle,
+                PublishedDate = blogPost.PublishedDate,
+                ShortDescription = blogPost.ShortDescription,
+                IsVisible = blogPost.IsVisible,
+                Tags = tagsDomainModel.Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                }),
+                SelectedTags = blogPost.Tags.Select(x => x.Id.ToString()).ToArray(),
+            };
+
+            return View(viewModel);
+        }
+
+        return View(null);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(EditBlogPostRequest request)
+    {
+        // map to domain model
+        var blogPost = new BlogPost
+        {
+            Id = request.Id,
+            Heading = request.Heading,
+            PageTitle = request.PageTitle,
+            Contet = request.Contet,
+            Author = request.Author,
+            FeaturedImageUrl = request.FeaturedImageUrl,
+            UrlHandle = request.UrlHandle,
+            PublishedDate = request.PublishedDate,
+            ShortDescription = request.ShortDescription,
+            IsVisible = request.IsVisible,
+        };
+
+        // map tags to domain model
+        var selectedTags = new List<Tag>();
+        foreach (var selectedTagId in request.SelectedTags)
+        {
+            if (Guid.TryParse(selectedTagId, out var tagId))
+            {
+                var tag = await _tagRepository.GetAsync(tagId);
+                if (tag != null)
+                {
+                    selectedTags.Add(tag);
+                }
+            }
+        }
+
+        blogPost.Tags = selectedTags;
+
+        // submit to repository
+        var updatedBlogPost = await _blogPostRepository.EditAsync(blogPost);
+        if (updatedBlogPost != null)
+        {
+            // show success notification
+            return RedirectToAction("Edit");
+        }
+
+        // show error notigication
+        return RedirectToAction("Edit");
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Delete(EditBlogPostRequest request)
+    {
+        var deletedBlogPost = await _blogPostRepository.DeleteAsync(request.Id);
+        if (deletedBlogPost != null)
+        {
+            //show success notification
+            return RedirectToAction("GetAll");
+        }
+
+        // show error notification
+        return RedirectToAction("Edit", new { id = request.Id });
+    }
 }

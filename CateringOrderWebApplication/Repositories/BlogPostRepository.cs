@@ -23,7 +23,9 @@ namespace CateringOrderWebApplication.Repositories
 
         public async Task<BlogPost?> GetAsync(Guid id)
         {
-            return await _dbContext.BlogPosts.FindAsync(id);
+            return await _dbContext.BlogPosts
+                .Include(x => x.Tags)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<BlogPost> AddAsync(BlogPost newBlogPost)
@@ -34,14 +36,47 @@ namespace CateringOrderWebApplication.Repositories
             return newBlogPost;
         }
 
-        public Task<BlogPost>? EditAsync(BlogPost blogPost)
+        public async Task<BlogPost>? EditAsync(BlogPost blogPost)
         {
-            throw new NotImplementedException();
+            var existingBlogPost = await _dbContext.BlogPosts
+                .Include(x => x.Tags)
+                .FirstOrDefaultAsync(x => x.Id == blogPost.Id);
+
+            if (existingBlogPost != null)
+            {
+                existingBlogPost.Id = blogPost.Id;
+                existingBlogPost.Heading = blogPost.Heading;
+                existingBlogPost.PageTitle = blogPost.PageTitle;
+                existingBlogPost.Contet = blogPost.Contet;
+                existingBlogPost.ShortDescription = blogPost.ShortDescription;
+                existingBlogPost.Author = blogPost.Author;
+                existingBlogPost.FeaturedImageUrl = blogPost.FeaturedImageUrl;
+                existingBlogPost.UrlHandle = blogPost.UrlHandle;
+                existingBlogPost.IsVisible = blogPost.IsVisible;
+                existingBlogPost.PublishedDate = blogPost.PublishedDate;
+                existingBlogPost.Tags = blogPost.Tags;
+
+                await _dbContext.SaveChangesAsync();
+
+                return existingBlogPost;
+            }
+
+            return null;
         }
 
-        public Task<BlogPost>? DeleteAsync(Guid id)
+        public async Task<BlogPost>? DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var existingBlogPost = await _dbContext.BlogPosts.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (existingBlogPost != null)
+            {
+                _dbContext.BlogPosts.Remove(existingBlogPost);
+                await _dbContext.SaveChangesAsync();
+
+                return existingBlogPost;
+            }
+
+            return null;
         }
     }
 }
