@@ -1,0 +1,24 @@
+﻿@model List<CateringOrderWebApplication.Models.DomainModels.BlogPost>;
+
+@foreach (var post in Model.Where(post => @post.IsVisible))
+{
+    <div class="container">
+        <article>
+            <h1>@post.Heading</h1>
+            <h2>@post.PageTitle</h2>
+            <p>@post.ShortDescription</p>
+
+            <main>
+                <p>@post.Contet</p>
+                <hr />
+                <a href="@post.UrlHandle"></a>
+                <p>@post.Author</p>
+                <p>@post.PublishedDate.ToShortDateString()</p>
+            </main>
+            
+            @* TODO tags*@
+
+        </article>
+
+    </div>
+}
