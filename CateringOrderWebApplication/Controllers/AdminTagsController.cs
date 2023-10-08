@@ -1,17 +1,19 @@
 ﻿using CateringOrderWebApplication.Data;
 using CateringOrderWebApplication.Models.DomainModels;
 using CateringOrderWebApplication.Models.ViewModels;
+using CateringOrderWebApplication.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CateringOrderWebApplication.Controllers
 {
 	public class AdminTagsController : Controller
 	{
-		private readonly CateringOrderDbContext _dbContext;
+		private readonly ITagRepository _tagRepository;
 
-		public AdminTagsController(CateringOrderDbContext dbContext)
+		public AdminTagsController(ITagRepository tagRepository)
 		{
-			_dbContext = dbContext;
+			_tagRepository = tagRepository;
 		}
 
 		[HttpGet]
@@ -30,23 +32,23 @@ namespace CateringOrderWebApplication.Controllers
 				DisplayName = addRequest.DisplayName,
 			};
 
-			await _dbContext.Tags.AddAsync(newTag);
-			await _dbContext.SaveChangesAsync();
+			await _tagRepository.AddAsync(newTag);
 
 			return RedirectToAction("GetAll");
 		}
 
 		[HttpGet]
-		public IActionResult GetAll()
+		public async Task<IActionResult> GetAll()
 		{
-			var tags = _dbContext.Tags.ToList();
+			var tags = await _tagRepository.GetAllAsync();
 			return View(tags);
 		}
 
 		[HttpGet]
-		public IActionResult Edit(Guid id)
+		public async Task<IActionResult> Edit(Guid id)
 		{
-			var tag = _dbContext.Tags.FirstOrDefault(t => t.Id == id);
+			var tag = await _tagRepository.GetAsync(id);
+
 			if (tag == null) return View(null);
 
 			var editTagRequest = new EditTagRequest
@@ -60,7 +62,7 @@ namespace CateringOrderWebApplication.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Edit(EditTagRequest request)
+		public async Task<IActionResult> Edit(EditTagRequest request)
 		{
 			var tag = new Tag
 			{
@@ -69,29 +71,26 @@ namespace CateringOrderWebApplication.Controllers
 				DisplayName = request.DisplayName,
 			};
 
-			var existingTag = _dbContext.Tags.Find(tag.Id);
+			var updatedTag = await _tagRepository.EditAsync(tag);
+			if (updatedTag != null)
+			{
+				// show success notification
+			}
+			else
+			{
+				// show error notification
+			}
 
-			// Show error notification
-			if (existingTag == null) return RedirectToAction("Edit", new { id = request.Id });
-
-			existingTag.Name = tag.Name;
-			existingTag.DisplayName = tag.DisplayName;
-			_dbContext.SaveChanges();
-
-			// Show success notification
 			return RedirectToAction("Edit", new { id = request.Id });
 		}
 
 		[HttpPost]
-		public IActionResult Delete(EditTagRequest request)
+		public async Task<IActionResult> Delete(EditTagRequest request)
 		{
-			var id = request.Id;
-			var existingTag = _dbContext.Tags.Find(id);
+			var existingTag = await _tagRepository.DeleteAsync(request.Id);
+
 			if (existingTag != null)
 			{
-				_dbContext.Tags.Remove(existingTag);
-				_dbContext.SaveChanges();
-
 				// show a success notification
 				return RedirectToAction("GetAll");
 			}
