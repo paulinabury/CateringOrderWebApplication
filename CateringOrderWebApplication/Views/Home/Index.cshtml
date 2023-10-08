@@ -1,8 +1,68 @@
-﻿@{
+﻿@model IEnumerable<CateringOrderWebApplication.Models.DomainModels.BlogPosts.BlogPost>;
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container col-xxl-8 px-4 py-5">
+    <div class="row align-items-center g-5 py-5">
+        <div class="col-12 col-lg-6">
+            <h1 class="display-5 fw-bold lh-1 mb-3">
+                Catering web application
+            </h1>
+            <p class="lead">
+                Catering web application allows you to customize and order personal catering plan that will provide you with delicious meals and healthy life.
+
+                @*  <p class="lead fw-bold">Start today!</p>
+                <button class="btn btn-dark">Start</button> *@
+            </p>
+        </div>
+
+        <div class="col-12 col-lg-6">
+            <img src="https://media.istockphoto.com/id/1281014931/pl/zdj%C4%99cie/sma%C5%BCenie-mi%C4%99sa-na-patelni.jpg?s=1024x1024&w=is&k=20&c=JCK1txiJeS-R2p8qoPftCNW-WCBs3fINR_bC8N03Ouw="
+                 alt="catering"
+                 lass="d-block mx-lg-auto img-fluid"
+                 width="600" />
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            @if (@Model.Count() > 0)
+            {
+                @foreach (var blogPost in @Model)
+                {
+                    <div class="mb-4 bg-light box-shadow px-5 py-5">
+                        <img src="@blogPost.FeaturedImageUrl" alt="@blogPost.Heading"
+                             class="mb-2 d-block img-fluid" />
+
+                        <h2 class="mb-4">@blogPost.Heading</h2>
+                        <p class="mb-4">
+                            Author: @blogPost.Author
+                            <br />
+                            Published date: @blogPost.PublishedDate.ToShortDateString()
+                        </p>
+
+                        <p mb-4>
+                            @foreach (var tag in blogPost.Tags)
+                            {
+                                <span class="badge bg-secondary me-1">@tag.Name</span>
+                            }
+                        </p>
+                        <p class="mb-4">@blogPost.ShortDescription</p>
+
+                        <a class="btn btn-dark"
+                           asp-area=""
+                           asp-controller="Blogs"
+                           asp-action="Index"
+                           asp-route-urlHandle="@blogPost.UrlHandle">
+                            Read more
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+    </div>
 </div>

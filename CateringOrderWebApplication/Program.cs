@@ -7,14 +7,17 @@ var builder = WebApplication.CreateBuilder(args);
 // AddBlogPost services to the container.
 builder.Services.AddControllersWithViews();
 
+// Database context - dependency injection
 builder.Services.AddDbContext<CateringOrderDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")
     )
 );
 
+// Repositories - dependency injection
 builder.Services.AddScoped<ITagRepository, TagRepository>();
 builder.Services.AddScoped<IBlogPostRepository, BlogPostRepository>();
+builder.Services.AddScoped<IImageRepository, CloudinaryImageRepository>();
 
 var app = builder.Build();
 

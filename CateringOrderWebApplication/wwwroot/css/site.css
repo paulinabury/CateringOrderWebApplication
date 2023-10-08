@@ -16,3 +16,8 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.blog-details-content img {
+    min-width: 100%;
+    max-width: 100%;
+}

@@ -28,6 +28,15 @@ namespace CateringOrderWebApplication.Repositories
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public Task<BlogPost?> GetAsync(string urlHandle)
+        {
+            var existingBlogPost = _dbContext.BlogPosts
+                .Include(x => x.Tags)
+                .FirstOrDefaultAsync(x => x.UrlHandle == urlHandle);
+
+            return existingBlogPost ?? null;
+        }
+
         public async Task<BlogPost> AddAsync(BlogPost newBlogPost)
         {
             await _dbContext.BlogPosts.AddAsync(newBlogPost);

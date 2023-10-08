@@ -8,6 +8,8 @@ namespace CateringOrderWebApplication.Repositories
 
         Task<BlogPost?> GetAsync(Guid id);
 
+        Task<BlogPost?> GetAsync(string urlHandle);
+
         Task<BlogPost> AddAsync(BlogPost newBlogPost);
 
         Task<BlogPost?> EditAsync(BlogPost blogPost);
