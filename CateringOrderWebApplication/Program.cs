@@ -2,6 +2,7 @@ using CateringOrderWebApplication.Data;
 using CateringOrderWebApplication.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,8 +35,14 @@ builder.Services.Configure<IdentityOptions>(options =>
 });
 
 // TUser, TRole - dependency injection
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<AuthDbContext>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+{
+    options.SignIn.RequireConfirmedEmail = false;
+    options.SignIn.RequireConfirmedAccount = false;
+    options.SignIn.RequireConfirmedPhoneNumber = false;
+})
+.AddEntityFrameworkStores<AuthDbContext>()
+.AddDefaultTokenProviders();
 
 // Repositories - dependency injection
 builder.Services.AddScoped<ITagRepository, TagRepository>();

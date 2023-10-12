@@ -57,6 +57,9 @@ namespace CateringOrderWebApplication.Data
                 NormalizedEmail = "superadmin@cateringOrderWebApp.com".ToUpper(),
                 NormalizedUserName = "superadmin@cateringOrderWebApp.com".ToUpper(),
                 Id = superAdminId,
+                TwoFactorEnabled = false,
+                EmailConfirmed = true,
+                PhoneNumberConfirmed = true,
             };
 
             superAdminUser.PasswordHash = new PasswordHasher<IdentityUser>()
