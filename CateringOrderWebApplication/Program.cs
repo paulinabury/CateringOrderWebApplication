@@ -1,5 +1,6 @@
 using CateringOrderWebApplication.Data;
 using CateringOrderWebApplication.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,17 @@ builder.Services.AddDbContext<CateringOrderDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection")
     )
 );
+
+// AuthDb context - dependency injection
+builder.Services.AddDbContext<AuthDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("AuthDbConnection")
+    )
+);
+
+// TUser, TRole - dependency injection
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<AuthDbContext>();
 
 // Repositories - dependency injection
 builder.Services.AddScoped<ITagRepository, TagRepository>();
@@ -34,6 +46,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
