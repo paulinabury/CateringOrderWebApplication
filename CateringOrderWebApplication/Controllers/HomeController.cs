@@ -1,6 +1,7 @@
 ﻿using CateringOrderWebApplication.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using CateringOrderWebApplication.Models.ViewModels;
 using CateringOrderWebApplication.Repositories;
 
 namespace CateringOrderWebApplication.Controllers
@@ -9,19 +10,32 @@ namespace CateringOrderWebApplication.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IBlogPostRepository _blogPostRepository;
+        private readonly ITagRepository _tagRepository;
 
         public HomeController(ILogger<HomeController> logger
-        , IBlogPostRepository blogPostRepository)
+        , IBlogPostRepository blogPostRepository
+        , ITagRepository tagRepository)
         {
             _logger = logger;
             _blogPostRepository = blogPostRepository;
+            _tagRepository = tagRepository;
         }
 
         public async Task<IActionResult> Index()
         {
+            // get all blogs
             var existingBlogs = await _blogPostRepository.GetAllAsync();
 
-            return View(existingBlogs);
+            // get all tags
+            var tags = await _tagRepository.GetAllAsync();
+
+            var model = new HomeViewModel()
+            {
+                BlogPosts = existingBlogs,
+                Tags = tags,
+            };
+
+            return View(model);
         }
 
         public IActionResult Privacy()
