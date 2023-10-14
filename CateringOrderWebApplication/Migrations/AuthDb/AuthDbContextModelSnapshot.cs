@@ -166,34 +166,17 @@ namespace CateringOrderWebApplication.Migrations.AuthDb
                         {
                             Id = "d2630249-33c6-4090-8eb9-635473e43dd4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "94331f19-df82-4db1-a9e7-23cf3ec7fb46",
+                            ConcurrencyStamp = "55e9aa1a-fd4e-455b-892b-77a9125331a4",
                             Email = "superadmin@cateringOrderWebApp.com",
-                            EmailConfirmed = false,
+                            EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "SUPERADMIN@CATERINGORDERWEBAPP.COM",
                             NormalizedUserName = "SUPERADMIN@CATERINGORDERWEBAPP.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEId2HoFDzbozydrcNTFAhIkMQ7EuLw+jIL+UU8h7pORPQN3d5jAIDg0Wb1nDAAQClA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "2340efc2-1707-44ba-ad7f-5723ca14c067",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAkVGR597mdbgvnH5LRYWEZMadoRsjTO/RDeqVEzDYnCK62LQoBw6ewQU9sfRzKTlA==",
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "6c4267af-3e58-4558-acc9-8472466984b0",
                             TwoFactorEnabled = false,
                             UserName = "superadmin@cateringOrderWebApp.com"
-                        },
-                        new
-                        {
-                            Id = "9AD8AF12-6961-4669-A618-23DAC01141B3",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "be0381f1-a456-4bef-bed6-793b9cefeac2",
-                            Email = "superAdmin@wp.pl",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "SUPERADMIN@WP.PL",
-                            NormalizedUserName = "SUPERADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAELxdVpZ9HKB6LmaJmtfeBloJZRiUxEX7Jc2t7UMB577RLXG89lMlZr2RqZWGJcx4rA==",
-                            PhoneNumber = "123456789",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "56f20348-7a6c-4585-b189-aa599ad59d8b",
-                            TwoFactorEnabled = false,
-                            UserName = "SuperAdmin"
                         });
                 });
 
@@ -272,21 +255,6 @@ namespace CateringOrderWebApplication.Migrations.AuthDb
                         new
                         {
                             UserId = "d2630249-33c6-4090-8eb9-635473e43dd4",
-                            RoleId = "035eacd4-fd1d-496b-b857-1bcfc8438cb4"
-                        },
-                        new
-                        {
-                            UserId = "9AD8AF12-6961-4669-A618-23DAC01141B3",
-                            RoleId = "02c80728-fca5-47ad-813d-e409ebaa5251"
-                        },
-                        new
-                        {
-                            UserId = "9AD8AF12-6961-4669-A618-23DAC01141B3",
-                            RoleId = "a0329a66-e162-4d14-88f8-ee80d931ac11"
-                        },
-                        new
-                        {
-                            UserId = "9AD8AF12-6961-4669-A618-23DAC01141B3",
                             RoleId = "035eacd4-fd1d-496b-b857-1bcfc8438cb4"
                         });
                 });

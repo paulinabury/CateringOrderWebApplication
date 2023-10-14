@@ -1,11 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using CateringOrderWebApplication.Models.DomainModels.Tags;
+﻿using CateringOrderWebApplication.Models.DomainModels.Tags;
 
-namespace CateringOrderWebApplication.Models.DomainModels.BlogPosts
+namespace CateringOrderWebApplication.Models.ViewModels.BlogPosts
 {
-    public class BlogPost
+    public class BlogDetailsViewModel
     {
-        [Key]
         public Guid Id { get; set; }
 
         public string Heading { get; set; }
@@ -17,10 +15,8 @@ namespace CateringOrderWebApplication.Models.DomainModels.BlogPosts
         public DateTime PublishedDate { get; set; }
         public string Author { get; set; }
         public bool IsVisible { get; set; }
-
-        // Navigation properties
         public ICollection<Tag> Tags { get; set; }
-
-        public ICollection<BlogPostLike> Likes { get; set; }
+        public int TotalLikes { get; set; }
+        public bool Liked { get; set; }
     }
 }
