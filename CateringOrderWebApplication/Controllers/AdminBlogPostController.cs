@@ -2,11 +2,13 @@
 using CateringOrderWebApplication.Models.DomainModels.Tags;
 using CateringOrderWebApplication.Models.ViewModels.BlogPosts;
 using CateringOrderWebApplication.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CateringOrderWebApplication.Controllers;
 
+[Authorize(Roles = "Admin, SuperAdmin")]
 public class AdminBlogPostController : Controller
 {
     private readonly ITagRepository _tagRepository;

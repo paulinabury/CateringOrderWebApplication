@@ -1,10 +1,12 @@
 ﻿using CateringOrderWebApplication.Models.DomainModels.Tags;
 using CateringOrderWebApplication.Models.ViewModels.Tags;
 using CateringOrderWebApplication.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CateringOrderWebApplication.Controllers
 {
+    [Authorize(Roles = "Admin, SuperAdmin")]
     public class AdminTagsController : Controller
     {
         private readonly ITagRepository _tagRepository;

@@ -64,6 +64,7 @@ namespace CateringOrderWebApplication.Controllers
             var identityUser = new IdentityUser
             {
                 UserName = loginViewModel.Username,
+                TwoFactorEnabled = false,
             };
 
             var loginResult = await _signInManager.PasswordSignInAsync(identityUser
@@ -82,10 +83,17 @@ namespace CateringOrderWebApplication.Controllers
             return View("Login");
         }
 
+        [HttpGet]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }

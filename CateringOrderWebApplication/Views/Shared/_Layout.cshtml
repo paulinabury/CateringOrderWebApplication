@@ -29,46 +29,52 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Admin
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item"
-                                       asp-area=""
-                                       asp-controller="AdminTags"
-                                       asp-action="AddTag">
-                                        Add tag
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item"
-                                       asp-area=""
-                                       asp-controller="AdminTags"
-                                       asp-action="GetAll">
-                                        Show all tags
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item"
-                                       asp-area=""
-                                       asp-controller="AdminBlogPost"
-                                       asp-action="AddBlogPost">
-                                        Add blog post
-                                    </a>
-                                </li>
 
-                                <li>
-                                    <a class="dropdown-item"
-                                       asp-area=""
-                                       asp-controller="AdminBlogPost"
-                                       asp-action="GetAll">
-                                        Show all posts
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        @if (signInManager.IsSignedIn(User)
+                            && User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Admin
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item"
+                                           asp-area=""
+                                           asp-controller="AdminTags"
+                                           asp-action="AddTag">
+                                            Add tag
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item"
+                                           asp-area=""
+                                           asp-controller="AdminTags"
+                                           asp-action="GetAll">
+                                            Show all tags
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item"
+                                           asp-area=""
+                                           asp-controller="AdminBlogPost"
+                                           asp-action="AddBlogPost">
+                                            Add blog post
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item"
+                                           asp-area=""
+                                           asp-controller="AdminBlogPost"
+                                           asp-action="GetAll">
+                                            Show all posts
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+
                     </ul>
                     <div class="d-flex align-items-center">
                         @if (signInManager.IsSignedIn(User))
@@ -85,7 +91,7 @@
                                asp-area=""
                                asp-controller="Account"
                                asp-action="Login">Login</a>
-                    
+
                             <a class="btn me-3 bg-light text-dark"
                                asp-area=""
                                asp-controller="Account"
