@@ -53,9 +53,10 @@ namespace CateringOrderWebApplication.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl)
         {
-            return View();
+            var model = new LoginViewModel { ReturnUrl = returnUrl };
+            return View(model);
         }
 
         [HttpPost]
@@ -64,7 +65,6 @@ namespace CateringOrderWebApplication.Controllers
             var identityUser = new IdentityUser
             {
                 UserName = loginViewModel.Username,
-                TwoFactorEnabled = false,
             };
 
             var loginResult = await _signInManager.PasswordSignInAsync(identityUser
@@ -75,6 +75,11 @@ namespace CateringOrderWebApplication.Controllers
 
             if (loginResult.Succeeded)
             {
+                if (!string.IsNullOrWhiteSpace(loginViewModel.ReturnUrl))
+                {
+                    return Redirect(loginViewModel.ReturnUrl);
+                }
+
                 // show success notification
                 return RedirectToAction("Index", "Home");
             }
