@@ -166,15 +166,15 @@ namespace CateringOrderWebApplication.Migrations.AuthDb
                         {
                             Id = "d2630249-33c6-4090-8eb9-635473e43dd4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "20bb1a34-c59a-40f3-a147-135a4be679cc",
+                            ConcurrencyStamp = "3977bdc8-1f87-4b70-be1f-08864513915d",
                             Email = "superadmin@cateringOrderWebApp.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "SUPERADMIN@CATERINGORDERWEBAPP.COM",
                             NormalizedUserName = "SUPERADMIN@CATERINGORDERWEBAPP.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEI18IsEq5pi6dCisFZl/ulFXLQ88MlxUgHcaFsenaoCTBFO0UTWIIL3TiSB0injzTg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGjMzuKk4k8J+Wu7Y784+iov/lHo2h+i4RMuWESp+8qx9pIKoaqxWGez9KncpeERdA==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "1338551f-857e-4832-a0b2-1c979d507ae6",
+                            SecurityStamp = "13890dbe-a78d-4588-b15c-6d9c51e4d77a",
                             TwoFactorEnabled = false,
                             UserName = "superadmin@cateringOrderWebApp.com"
                         });

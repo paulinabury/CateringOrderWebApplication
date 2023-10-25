@@ -22,6 +22,10 @@ builder.Services.AddDbContext<AuthDbContext>(options =>
     )
 );
 
+builder.Services.Configure<PasswordHasherOptions>(options =>
+    options.CompatibilityMode = PasswordHasherCompatibilityMode.IdentityV2
+);
+
 // Configure password requirements
 builder.Services.Configure<IdentityOptions>(options =>
 {

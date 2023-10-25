@@ -67,7 +67,7 @@ namespace CateringOrderWebApplication.Controllers
                 UserName = loginViewModel.Username,
             };
 
-            var loginResult = await _signInManager.PasswordSignInAsync(identityUser
+            var loginResult = await _signInManager.PasswordSignInAsync(identityUser.UserName
                 , loginViewModel.Password
                 , false
                 , false

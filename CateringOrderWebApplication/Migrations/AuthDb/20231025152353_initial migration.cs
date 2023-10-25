@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CateringOrderWebApplication.Migrations.AuthDb
 {
     /// <inheritdoc />
-    public partial class Creatingauthdb : Migration
+    public partial class initialmigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -171,7 +171,7 @@ namespace CateringOrderWebApplication.Migrations.AuthDb
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "d2630249-33c6-4090-8eb9-635473e43dd4", 0, "2f133200-0745-4d3e-a682-19d2d480f6f4", "superadmin@cateringOrderWebApp.com", false, false, null, "SUPERADMIN@CATERINGORDERWEBAPP.COM", "SUPERADMIN@CATERINGORDERWEBAPP.COM", "AQAAAAIAAYagAAAAEHcBF3Ex5PWgrgMsHydnFr9VN/FJvy37zLoaaoUL+lwg8FtqsZx+eIGCQltyPdtAcA==", null, false, "d3d8dc36-747b-4189-92c6-3241b8c537ae", false, "superadmin@cateringOrderWebApp.com" });
+                values: new object[] { "d2630249-33c6-4090-8eb9-635473e43dd4", 0, "3977bdc8-1f87-4b70-be1f-08864513915d", "superadmin@cateringOrderWebApp.com", true, false, null, "SUPERADMIN@CATERINGORDERWEBAPP.COM", "SUPERADMIN@CATERINGORDERWEBAPP.COM", "AQAAAAIAAYagAAAAEGjMzuKk4k8J+Wu7Y784+iov/lHo2h+i4RMuWESp+8qx9pIKoaqxWGez9KncpeERdA==", null, true, "13890dbe-a78d-4588-b15c-6d9c51e4d77a", false, "superadmin@cateringOrderWebApp.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
