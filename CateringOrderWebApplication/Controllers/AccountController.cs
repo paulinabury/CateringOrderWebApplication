@@ -28,6 +28,11 @@ namespace CateringOrderWebApplication.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
             var identityUser = new IdentityUser
             {
                 UserName = registerViewModel.Username,
@@ -43,7 +48,7 @@ namespace CateringOrderWebApplication.Controllers
                 if (roleIdentityResult.Succeeded)
                 {
                     // show success notification
-                    return RedirectToAction("Register");
+                    return RedirectToAction("Login");
                 }
             }
 
@@ -62,6 +67,10 @@ namespace CateringOrderWebApplication.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("Login");
+            }
             var identityUser = new IdentityUser
             {
                 UserName = loginViewModel.Username,

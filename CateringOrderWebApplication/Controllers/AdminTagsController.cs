@@ -25,6 +25,11 @@ namespace CateringOrderWebApplication.Controllers
         [HttpPost]
         public async Task<IActionResult> AddTag(AddTagRequest addRequest)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
             // mapping AddTagRequest to domain model Tag
             var newTag = new Tag
             {
