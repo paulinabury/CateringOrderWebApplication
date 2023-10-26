@@ -1,6 +1,6 @@
 ﻿using CateringOrderWebApplication.Models.DomainModels.BlogPosts;
 using CateringOrderWebApplication.Models.ViewModels.BlogPosts;
-using CateringOrderWebApplication.Repositories;
+using CateringOrderWebApplication.Repositories.BlogPosts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CateringOrderWebApplication.Controllers

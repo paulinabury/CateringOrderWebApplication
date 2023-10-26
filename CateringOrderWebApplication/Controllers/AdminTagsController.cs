@@ -1,6 +1,6 @@
 ﻿using CateringOrderWebApplication.Models.DomainModels.Tags;
 using CateringOrderWebApplication.Models.ViewModels.Tags;
-using CateringOrderWebApplication.Repositories;
+using CateringOrderWebApplication.Repositories.Tags;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

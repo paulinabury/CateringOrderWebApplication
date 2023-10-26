@@ -1,6 +1,6 @@
 ﻿using CateringOrderWebApplication.Models.DomainModels.BlogPosts;
 
-namespace CateringOrderWebApplication.Repositories
+namespace CateringOrderWebApplication.Repositories.BlogPosts
 {
     public interface IBlogPostCommentRepository
     {

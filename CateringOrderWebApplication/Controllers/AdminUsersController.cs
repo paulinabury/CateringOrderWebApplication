@@ -1,5 +1,5 @@
 ﻿using CateringOrderWebApplication.Models.ViewModels.Users;
-using CateringOrderWebApplication.Repositories;
+using CateringOrderWebApplication.Repositories.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

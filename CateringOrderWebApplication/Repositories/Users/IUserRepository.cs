@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace CateringOrderWebApplication.Repositories
+namespace CateringOrderWebApplication.Repositories.Users
 {
     public interface IUserRepository
     {

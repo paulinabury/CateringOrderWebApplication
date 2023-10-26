@@ -1,5 +1,8 @@
 using CateringOrderWebApplication.Data;
 using CateringOrderWebApplication.Repositories;
+using CateringOrderWebApplication.Repositories.BlogPosts;
+using CateringOrderWebApplication.Repositories.Tags;
+using CateringOrderWebApplication.Repositories.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

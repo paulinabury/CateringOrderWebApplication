@@ -2,7 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using CateringOrderWebApplication.Models.ViewModels;
-using CateringOrderWebApplication.Repositories;
+using CateringOrderWebApplication.Repositories.BlogPosts;
+using CateringOrderWebApplication.Repositories.Tags;
 
 namespace CateringOrderWebApplication.Controllers
 {

@@ -2,7 +2,7 @@
 using CateringOrderWebApplication.Models.DomainModels.BlogPosts;
 using Microsoft.EntityFrameworkCore;
 
-namespace CateringOrderWebApplication.Repositories
+namespace CateringOrderWebApplication.Repositories.BlogPosts
 {
     public class BlogPostLikeRepository : IBlogPostLikeRepository
     {

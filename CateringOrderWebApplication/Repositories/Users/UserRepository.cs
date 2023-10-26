@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace CateringOrderWebApplication.Repositories
+namespace CateringOrderWebApplication.Repositories.Users
 {
     public class UserRepository : IUserRepository
     {
