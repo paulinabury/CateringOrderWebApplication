@@ -1,5 +1,4 @@
-﻿using CateringOrderWebApplication.Models.DomainModels.Tags;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CateringOrderWebApplication.Models.ViewModels.BlogPosts
 {

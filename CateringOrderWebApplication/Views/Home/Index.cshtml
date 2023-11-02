@@ -44,39 +44,34 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-6">
-            @if (@Model.BlogPosts.Count() > 0)
+            @if (@Model.Caterings.Count() > 0)
             {
-                @foreach (var blogPost in @Model.BlogPosts)
+                @foreach (var catering in @Model.Caterings)
                 {
-                    <div class="mb-4 bg-light box-shadow px-5 py-5">
-                        <img src="@blogPost.FeaturedImageUrl" alt="@blogPost.Heading"
-                             class="mb-2 d-block img-fluid" />
+                    <div class="mt-4 mb-4 bg-light box-shadow px-5 py-5 d-flex">
+                        <img src="@catering.FeaturedImageUrl" alt="@catering.Name"
+                             class=" mb-2 d-block" width="55%">
 
-                        <h2 class="mb-4">@blogPost.Heading</h2>
-                        <p class="mb-4">
-                            Author: @blogPost.Author
-                            <br />
-                            Published date: @blogPost.PublishedDate.ToShortDateString()
-                        </p>
+                        <div class="m-3">
+                            <h6 class="mb-2">@catering.ShortDescription</h6>
+                            <h2 class="mb-4">@catering.Name</h2>
+                            <p class="mb-4">
+                                @catering.Content
+                            </p>
+                            <p>Cena: @catering.Price</p>
 
-                        <p mb-4>
-                            @foreach (var tag in blogPost.Tags)
-                            {
-                                <span class="badge bg-secondary me-1">@tag.Name</span>
-                            }
-                        </p>
-                        <p class="mb-4">@blogPost.ShortDescription</p>
-
-                        <a class="btn btn-dark"
-                           asp-area=""
-                           asp-controller="Blogs"
-                           asp-action="Index"
-                           asp-route-urlHandle="@blogPost.UrlHandle">
-                            Read more
-                        </a>
+                            <p mb-4>
+                                @foreach (var tag in catering.Tags)
+                                {
+                                    <span class="badge bg-secondary me-1">@tag.Name</span>
+                                }
+                            </p>
+                            <button class="btn btn-dark ">Zamów</button>
+                        </div>
                     </div>
                 }
             }
         </div>
     </div>
+
 </div>

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CateringOrderWebApplication.Migrations
 {
     [DbContext(typeof(CateringOrderDbContext))]
-    [Migration("20231015064803_Add comments")]
-    partial class Addcomments
+    [Migration("20231102171350_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -130,10 +130,43 @@ namespace CateringOrderWebApplication.Migrations
                     b.ToTable("BlogPostLikes");
                 });
 
+            modelBuilder.Entity("CateringOrderWebApplication.Models.DomainModels.Caterings.Catering", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FeaturedImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ShortDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Caterings");
+                });
+
             modelBuilder.Entity("CateringOrderWebApplication.Models.DomainModels.Tags.Tag", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CateringId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("DisplayName")
@@ -145,6 +178,8 @@ namespace CateringOrderWebApplication.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CateringId");
 
                     b.ToTable("Tags");
                 });
@@ -182,11 +217,23 @@ namespace CateringOrderWebApplication.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("CateringOrderWebApplication.Models.DomainModels.Tags.Tag", b =>
+                {
+                    b.HasOne("CateringOrderWebApplication.Models.DomainModels.Caterings.Catering", null)
+                        .WithMany("Tags")
+                        .HasForeignKey("CateringId");
+                });
+
             modelBuilder.Entity("CateringOrderWebApplication.Models.DomainModels.BlogPosts.BlogPost", b =>
                 {
                     b.Navigation("Comments");
 
                     b.Navigation("Likes");
+                });
+
+            modelBuilder.Entity("CateringOrderWebApplication.Models.DomainModels.Caterings.Catering", b =>
+                {
+                    b.Navigation("Tags");
                 });
 #pragma warning restore 612, 618
         }

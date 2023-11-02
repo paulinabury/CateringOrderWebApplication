@@ -1,6 +1,7 @@
 using CateringOrderWebApplication.Data;
 using CateringOrderWebApplication.Repositories;
 using CateringOrderWebApplication.Repositories.BlogPosts;
+using CateringOrderWebApplication.Repositories.Caterings;
 using CateringOrderWebApplication.Repositories.Tags;
 using CateringOrderWebApplication.Repositories.Users;
 using Microsoft.AspNetCore.Identity;
@@ -57,6 +58,7 @@ builder.Services.AddScoped<IImageRepository, CloudinaryImageRepository>();
 builder.Services.AddScoped<IBlogPostLikeRepository, BlogPostLikeRepository>();
 builder.Services.AddScoped<IBlogPostCommentRepository, BlogPostCommentRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ICateringRepository, CateringRepository>();
 
 var app = builder.Build();
 

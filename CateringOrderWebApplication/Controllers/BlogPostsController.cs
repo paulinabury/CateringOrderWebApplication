@@ -8,14 +8,14 @@ using CateringOrderWebApplication.Repositories.Tags;
 
 namespace CateringOrderWebApplication.Controllers
 {
-    public class HomeController : Controller
+    public class BlogPostsController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IBlogPostRepository _blogPostRepository;
         private readonly ITagRepository _tagRepository;
         private readonly ICateringRepository _cateringRepository;
 
-        public HomeController(ILogger<HomeController> logger
+        public BlogPostsController(ILogger<HomeController> logger
         , IBlogPostRepository blogPostRepository
         , ITagRepository tagRepository, ICateringRepository cateringRepository)
         {
@@ -44,11 +44,6 @@ namespace CateringOrderWebApplication.Controllers
             };
 
             return View(model);
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

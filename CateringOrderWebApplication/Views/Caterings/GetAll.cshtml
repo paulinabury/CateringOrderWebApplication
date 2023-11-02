@@ -1,0 +1,56 @@
+﻿@model IEnumerable<CateringOrderWebApplication.Models.DomainModels.Caterings.Catering>;
+@{
+}
+
+<div class="bg-secondary bg-opacity-10 py-2">
+    <div class="container">
+        <h1>Caterings</h1>
+    </div>
+</div>
+
+<div class="container py-5">
+    @if (@Model.Count() > 0)
+    {
+        <table class="table">
+            <thead>
+            <tr>
+                <td>Id</td>
+                <td>Catering</td>
+                <td>Tags</td>
+                <td> </td>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var catering in @Model)
+            {
+                <tr>
+                    <td>@catering.Id</td>
+                    <td>@catering.Name</td>
+                    <td>
+                        <div class="d-flex">
+                            @foreach (var tag in catering.Tags)
+                            {
+                                <span class="badge bg-secondary me-1">@tag.Name</span>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <a class="btn btn-dark"
+                           asp-area=""
+                           asp-controller="Caterings"
+                           asp-action="Edit"
+                           asp-route-id="@catering.Id">
+                            Edit
+                        </a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No caterings found</p>
+    }
+
+</div>

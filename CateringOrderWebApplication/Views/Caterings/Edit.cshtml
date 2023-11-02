@@ -1,0 +1,80 @@
+﻿@model CateringOrderWebApplication.Models.ViewModels.Caterings.EditCateringRequest;
+@{
+}
+<div class="bg-secondary bg-opacity-10 py-2">
+    <div class="container">
+        <h1>Edit catering</h1>
+    </div>
+</div>
+
+<div class="container py-5">
+    @if (Model != null)
+    {
+        <form method="post">
+
+            <div class="mb-3">
+                <label class="form-label">Id</label>
+                <input type="text" class="form-control" id="id" asp-for="Id" readonly />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" id="heading" asp-for="Name" />
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Short description</label>
+                <input type="text" class="form-control" id="heading" asp-for="ShortDescription" />
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Content</label>
+                <input type="text" class="form-control" id="heading" asp-for="Content" />
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Price</label>
+                <input type="number" class="form-control" id="heading" asp-for="Price" />
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Featured Image Upload</label>
+                <input type="file" id="featuredImageUpload" class="form-control" />
+
+                @if (Model.FeaturedImageUrl != null)
+                {
+                    <img src="@Model.FeaturedImageUrl" id="featuredImageDisplay" style="display:block;width: 300px;" alt="existing image"/>
+                }
+                else
+                {
+                    <img src="" id="featuredImageDisplay" style="display:none;width: 300px;" alt="no image"/>
+                }
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Featured Image URL</label>
+                <input type="text" class="form-control" id="featuredImageUrl" asp-for="FeaturedImageUrl" />
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Tags</label>
+                <select class="form-select"
+                        asp-items="@Model.Tags"
+                        asp-for="SelectedTags">
+                </select>
+            </div>
+            
+            <div class="mb-3 d-flex">
+                <button type="submit" class="btn btn-dark">Update</button>
+
+                <button type="submit"
+                        class="btn btn-danger ms-2"
+                        asp-area=""
+                        asp-controller="Caterings"
+                        asp-action="Delete">
+                    Delete
+                </button>
+            </div>
+
+        </form>
+    }
+</div>

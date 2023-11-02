@@ -31,9 +31,13 @@
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="BlogPosts" asp-action="Index">Blog</a>
+                        </li>
+
                         @if (signInManager.IsSignedIn(User)
-                            && User.IsInRole("Admin")
-                            )
+                        && User.IsInRole("Admin")
+                        )
                         {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -73,13 +77,31 @@
                                             Show all posts
                                         </a>
                                     </li>
-                                    
+
                                     <li>
                                         <a class="dropdown-item"
                                            asp-area=""
                                            asp-controller="AdminUsers"
                                            asp-action="GetAll">
                                             Show all users
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item"
+                                           asp-area=""
+                                           asp-controller="Caterings"
+                                           asp-action="AddCatering">
+                                            Add catering
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item"
+                                           asp-area=""
+                                           asp-controller="Caterings"
+                                           asp-action="GetAll">
+                                            Show all caterings
                                         </a>
                                     </li>
                                 </ul>

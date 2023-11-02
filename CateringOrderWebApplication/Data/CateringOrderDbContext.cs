@@ -1,4 +1,5 @@
 ﻿using CateringOrderWebApplication.Models.DomainModels.BlogPosts;
+using CateringOrderWebApplication.Models.DomainModels.Caterings;
 using CateringOrderWebApplication.Models.DomainModels.Tags;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,5 +16,6 @@ namespace CateringOrderWebApplication.Data
         public DbSet<Tag> Tags { get; set; }
         public DbSet<BlogPostLike> BlogPostLikes { get; set; }
         public DbSet<BlogPostComment> BlogPostComments { get; set; }
+        public DbSet<Catering> Caterings { get; set; }
     }
 }
