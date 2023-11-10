@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using CateringOrderWebApplication.Models.DomainModels.Tags;
+using CateringOrderWebApplication.Repositories.Base;
 
 namespace CateringOrderWebApplication.Models.DomainModels.BlogPosts
 {
-    public class BlogPost
+    public class BlogPost : IEntityBase
     {
         [Key]
         public Guid Id { get; set; }

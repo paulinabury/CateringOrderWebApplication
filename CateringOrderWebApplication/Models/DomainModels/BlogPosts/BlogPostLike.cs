@@ -1,6 +1,8 @@
-﻿namespace CateringOrderWebApplication.Models.DomainModels.BlogPosts
+﻿using CateringOrderWebApplication.Repositories.Base;
+
+namespace CateringOrderWebApplication.Models.DomainModels.BlogPosts
 {
-    public class BlogPostLike
+    public class BlogPostLike : IEntityBase
     {
         public Guid Id { get; set; }
         public Guid BlogPostId { get; set; }

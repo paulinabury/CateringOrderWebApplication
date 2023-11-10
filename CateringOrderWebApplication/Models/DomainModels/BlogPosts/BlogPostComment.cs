@@ -1,6 +1,8 @@
-﻿namespace CateringOrderWebApplication.Models.DomainModels.BlogPosts
+﻿using CateringOrderWebApplication.Repositories.Base;
+
+namespace CateringOrderWebApplication.Models.DomainModels.BlogPosts
 {
-    public class BlogPostComment
+    public class BlogPostComment : IEntityBase
     {
         public Guid Id { get; set; }
         public string Description { get; set; }

@@ -13,38 +13,38 @@
     {
         <table class="table">
             <thead>
-            <tr>
-                <td>Id</td>
-                <td>Catering</td>
-                <td>Tags</td>
-                <td> </td>
-            </tr>
+                <tr>
+                    <td>Id</td>
+                    <td>Catering</td>
+                    <td>Tags</td>
+                    <td> </td>
+                </tr>
             </thead>
             <tbody>
-            @foreach (var catering in @Model)
-            {
-                <tr>
-                    <td>@catering.Id</td>
-                    <td>@catering.Name</td>
-                    <td>
-                        <div class="d-flex">
-                            @foreach (var tag in catering.Tags)
-                            {
-                                <span class="badge bg-secondary me-1">@tag.Name</span>
-                            }
-                        </div>
-                    </td>
-                    <td>
-                        <a class="btn btn-dark"
-                           asp-area=""
-                           asp-controller="Caterings"
-                           asp-action="Edit"
-                           asp-route-id="@catering.Id">
-                            Edit
-                        </a>
-                    </td>
-                </tr>
-            }
+                @foreach (var catering in @Model)
+                {
+                    <tr>
+                        <td>@catering.Id</td>
+                        <td>@catering.Name</td>
+                        <td>
+                            <div class="d-flex">
+                                @foreach (var tag in catering.Tags)
+                                {
+                                    <span class="badge bg-secondary me-1">@tag.Name</span>
+                                }
+                            </div>
+                        </td>
+                        <td>
+                            <a class="btn btn-dark"
+                               asp-area=""
+                               asp-controller="Caterings"
+                               asp-action="Edit"
+                               asp-route-id="@catering.Id">
+                                Edit
+                            </a>
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
     }
@@ -52,5 +52,4 @@
     {
         <p>No caterings found</p>
     }
-
 </div>

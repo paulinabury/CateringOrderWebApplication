@@ -1,6 +1,7 @@
 ﻿using CateringOrderWebApplication.Models.DomainModels.BlogPosts;
 using CateringOrderWebApplication.Models.DomainModels.Tags;
 using CateringOrderWebApplication.Models.ViewModels.BlogPosts;
+using CateringOrderWebApplication.Repositories.Base;
 using CateringOrderWebApplication.Repositories.BlogPosts;
 using CateringOrderWebApplication.Repositories.Tags;
 using Microsoft.AspNetCore.Authorization;

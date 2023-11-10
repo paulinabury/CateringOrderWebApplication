@@ -1,15 +1,15 @@
-﻿using Azure;
-using CateringOrderWebApplication.Data;
+﻿using CateringOrderWebApplication.Data;
 using CateringOrderWebApplication.Models.DomainModels.BlogPosts;
+using CateringOrderWebApplication.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace CateringOrderWebApplication.Repositories.BlogPosts
 {
-    public class BlogPostRepository : IBlogPostRepository
+    public class BlogPostRepository : EntityBaseRepository<BlogPost>, IBlogPostRepository
     {
         private readonly CateringOrderDbContext _dbContext;
 
-        public BlogPostRepository(CateringOrderDbContext dbContext)
+        public BlogPostRepository(CateringOrderDbContext dbContext) : base(dbContext)
         {
             _dbContext = dbContext;
         }
@@ -37,14 +37,6 @@ namespace CateringOrderWebApplication.Repositories.BlogPosts
             return existingBlogPost ?? null;
         }
 
-        public async Task<BlogPost> AddAsync(BlogPost newBlogPost)
-        {
-            await _dbContext.BlogPosts.AddAsync(newBlogPost);
-            await _dbContext.SaveChangesAsync();
-
-            return newBlogPost;
-        }
-
         public async Task<BlogPost>? EditAsync(BlogPost blogPost)
         {
             var existingBlogPost = await _dbContext.BlogPosts
@@ -65,21 +57,6 @@ namespace CateringOrderWebApplication.Repositories.BlogPosts
                 existingBlogPost.PublishedDate = blogPost.PublishedDate;
                 existingBlogPost.Tags = blogPost.Tags;
 
-                await _dbContext.SaveChangesAsync();
-
-                return existingBlogPost;
-            }
-
-            return null;
-        }
-
-        public async Task<BlogPost>? DeleteAsync(Guid id)
-        {
-            var existingBlogPost = await _dbContext.BlogPosts.FirstOrDefaultAsync(x => x.Id == id);
-
-            if (existingBlogPost != null)
-            {
-                _dbContext.BlogPosts.Remove(existingBlogPost);
                 await _dbContext.SaveChangesAsync();
 
                 return existingBlogPost;

@@ -29,49 +29,63 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-6 d-flex">
-            @if (@Model != null && @Model.Tags.Count() > 0)
-            {
-                @foreach (var tag in @Model.Tags)
-                {
-                    <span class="badge bg-dark me-1">@tag.Name</span>
-                }
-            }
-        </div>
+
+        <p class="h1 text-info display-1">Poznaj naszą ofertę</p>
+
     </div>
 </div>
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-6">
-            @if (@Model.Caterings.Count() > 0)
-            {
+<div class="container col-xxl-12 px-4 py-5">
+    @if (@Model.Caterings.Count() > 0)
+    {
+        <div class="container py-5">
+            <div class="row px-4 py-4">
                 @foreach (var catering in @Model.Caterings)
                 {
-                    <div class="mt-4 mb-4 bg-light box-shadow px-5 py-5 d-flex">
-                        <img src="@catering.FeaturedImageUrl" alt="@catering.Name"
-                             class=" mb-2 d-block" width="55%">
+                    <div class="col-md-4 col-xs-6 border-primary mb-3">
+                        <div class="card mb-3" style="max-width: 540px;">
+                            <div class="row g-0">
+                                <div class="col-md-12">
+                                    <div class="card-header text-white bg-info">
+                                        <p class="card-text">
+                                            <h5 class="card-title">
+                                                @catering.Name
+                                            </h5>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <img src="@catering.FeaturedImageUrl" width="200%" height=" 100%" alt="@catering.Name">
+                                </div>
+                                <div class="col-md-6" style="background: aliceblue; min-height: 290px">
+                                    <div class="card-body">
+                                        <p class="card-text">@catering.ShortDescription</p>
+                                        <p class="card-text"><b>Details: </b>@catering.Content</p>
+                                        <p class="card-text"><b>Price: </b>@catering.Price</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="card-footer ">
+                                        <p class="card-text">
+                                            <a class="btn btn-outline-primary mb-2" asp-action="" asp-route-id="@catering.Id">
+                                                <i class="bi bi-eye-fill"></i> Show Details
+                                            </a>
+                                            <a class="btn btn-success text-white"
+                                               asp-controller=""
+                                               asp-action=""
+                                               asp-route-id="@catering.Id">
+                                                <i class="bi bi-cart-plus"></i> Add to Cart (Price @catering.Price.ToString("c"))
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
 
-                        <div class="m-3">
-                            <h6 class="mb-2">@catering.ShortDescription</h6>
-                            <h2 class="mb-4">@catering.Name</h2>
-                            <p class="mb-4">
-                                @catering.Content
-                            </p>
-                            <p>Cena: @catering.Price</p>
-
-                            <p mb-4>
-                                @foreach (var tag in catering.Tags)
-                                {
-                                    <span class="badge bg-secondary me-1">@tag.Name</span>
-                                }
-                            </p>
-                            <button class="btn btn-dark ">Zamów</button>
+                            </div>
                         </div>
                     </div>
                 }
-            }
+            </div>
         </div>
-    </div>
-
+    }
 </div>
+
