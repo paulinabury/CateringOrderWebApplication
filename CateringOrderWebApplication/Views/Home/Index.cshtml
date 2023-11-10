@@ -4,38 +4,16 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="container col-xxl-8 px-4 py-5">
-    <div class="row align-items-center g-5 py-5">
-        <div class="col-12 col-lg-6">
-            <h1 class="display-5 fw-bold lh-1 mb-3">
-                Catering web application
-            </h1>
-            <p class="lead">
-                Catering web application allows you to customize and order personal catering plan that will provide you with delicious meals and healthy life.
-
-                @*  <p class="lead fw-bold">Start today!</p>
-                <button class="btn btn-dark">Start</button> *@
-            </p>
-        </div>
-
-        <div class="col-12 col-lg-6">
-            <img src="https://media.istockphoto.com/id/1281014931/pl/zdj%C4%99cie/sma%C5%BCenie-mi%C4%99sa-na-patelni.jpg?s=1024x1024&w=is&k=20&c=JCK1txiJeS-R2p8qoPftCNW-WCBs3fINR_bC8N03Ouw="
-                 alt="catering"
-                 lass="d-block mx-lg-auto img-fluid"
-                 width="600" />
-        </div>
-    </div>
-</div>
-
-<div class="container">
+<div class="container col-xxl-6 px-4 py-5 justify-content-center">
     <div class="row justify-content-center">
 
-        <p class="h1 text-info display-1">Poznaj naszą ofertę</p>
+        <p class="h1 text-info display-3">Take the stress out of mealtime</p>
+        <a class="btn btn-info text-white text-center" style="max-width: 130px;" asp-controller="Planner" asp-action="Index">View our plan</a>
 
     </div>
 </div>
 
-<div class="container col-xxl-12 px-4 py-5">
+<div class="container col-xxl-12 ">
     @if (@Model.Caterings.Count() > 0)
     {
         <div class="container py-5">
@@ -62,6 +40,12 @@
                                         <p class="card-text">@catering.ShortDescription</p>
                                         <p class="card-text"><b>Details: </b>@catering.Content</p>
                                         <p class="card-text"><b>Price: </b>@catering.Price</p>
+                                        <div class="d-flex">
+                                            @foreach (var tag in catering.Tags)
+                                            {
+                                                <span class="badge bg-secondary me-1">@tag.Name</span>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
