@@ -1,14 +1,15 @@
 ﻿using CateringOrderWebApplication.Data;
 using CateringOrderWebApplication.Models.DomainModels.Tags;
+using CateringOrderWebApplication.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace CateringOrderWebApplication.Repositories.Tags
 {
-    public class TagRepository : ITagRepository
+    public class TagRepository : EntityBaseRepository<Tag>, ITagRepository
     {
         private readonly CateringOrderDbContext _dbContext;
 
-        public TagRepository(CateringOrderDbContext dbContext)
+        public TagRepository(CateringOrderDbContext dbContext) : base(dbContext)
         {
             _dbContext = dbContext;
         }
@@ -21,14 +22,6 @@ namespace CateringOrderWebApplication.Repositories.Tags
         public async Task<Tag?> GetAsync(Guid id)
         {
             return await _dbContext.Tags.FindAsync(id);
-        }
-
-        public async Task<Tag> AddAsync(Tag newTag)
-        {
-            await _dbContext.Tags.AddAsync(newTag);
-            await _dbContext.SaveChangesAsync();
-
-            return newTag;
         }
 
         public async Task<Tag?> EditAsync(Tag tag)
@@ -46,17 +39,6 @@ namespace CateringOrderWebApplication.Repositories.Tags
             }
 
             return null;
-        }
-
-        public async Task<Tag?> DeleteAsync(Guid id)
-        {
-            var existingTag = await _dbContext.Tags.FindAsync(id);
-
-            if (existingTag == null) return null;
-
-            _dbContext.Tags.Remove(existingTag);
-            await _dbContext.SaveChangesAsync();
-            return existingTag;
         }
     }
 }

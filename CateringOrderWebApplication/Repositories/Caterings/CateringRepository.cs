@@ -1,14 +1,15 @@
 ﻿using CateringOrderWebApplication.Data;
 using CateringOrderWebApplication.Models.DomainModels.Caterings;
+using CateringOrderWebApplication.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace CateringOrderWebApplication.Repositories.Caterings
 {
-    public class CateringRepository : ICateringRepository
+    public class CateringRepository : EntityBaseRepository<Catering>, ICateringRepository
     {
         private readonly CateringOrderDbContext _dbContext;
 
-        public CateringRepository(CateringOrderDbContext dbContext)
+        public CateringRepository(CateringOrderDbContext dbContext) : base(dbContext)
         {
             _dbContext = dbContext;
         }
@@ -27,14 +28,6 @@ namespace CateringOrderWebApplication.Repositories.Caterings
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<Catering> AddAsync(Catering newCatering)
-        {
-            await _dbContext.Caterings.AddAsync(newCatering);
-            await _dbContext.SaveChangesAsync();
-
-            return newCatering;
-        }
-
         public async Task<Catering?> EditAsync(Catering catering)
         {
             var existingCatering = await _dbContext.Caterings
@@ -51,17 +44,6 @@ namespace CateringOrderWebApplication.Repositories.Caterings
             existingCatering.Tags = catering.Tags;
 
             await _dbContext.SaveChangesAsync();
-            return existingCatering;
-        }
-
-        public async Task<Catering?> DeleteAsync(Guid id)
-        {
-            var existingCatering = await _dbContext.Caterings.FirstOrDefaultAsync(x => x.Id == id);
-
-            if (existingCatering == null) return null;
-            _dbContext.Caterings.Remove(existingCatering);
-            await _dbContext.SaveChangesAsync();
-
             return existingCatering;
         }
     }

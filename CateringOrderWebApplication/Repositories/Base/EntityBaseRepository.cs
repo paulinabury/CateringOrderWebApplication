@@ -13,23 +13,10 @@ namespace CateringOrderWebApplication.Repositories.Base
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync() => await _dbContext.Set<T>().ToListAsync();
-
-        public async Task<T> GetAsync(Guid id) => await _dbContext.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
-
         public async Task<T> AddAsync(T entity)
         {
             await _dbContext.Set<T>().AddAsync(entity);
             await _dbContext.SaveChangesAsync();
-            return entity;
-        }
-
-        public async Task<T?> EditAsync(T entity)
-        {
-            EntityEntry entityEntry = _dbContext.Entry<T>(entity);
-            entityEntry.State = EntityState.Modified;
-            await _dbContext.SaveChangesAsync();
-
             return entity;
         }
 

@@ -9,7 +9,8 @@ namespace CateringOrderWebApplication.Repositories.BlogPosts
     {
         private readonly CateringOrderDbContext _dbContext;
 
-        public BlogPostRepository(CateringOrderDbContext dbContext) : base(dbContext)
+        public BlogPostRepository(CateringOrderDbContext dbContext)
+            : base(dbContext)
         {
             _dbContext = dbContext;
         }
@@ -37,7 +38,7 @@ namespace CateringOrderWebApplication.Repositories.BlogPosts
             return existingBlogPost ?? null;
         }
 
-        public async Task<BlogPost>? EditAsync(BlogPost blogPost)
+        public async Task<BlogPost?> EditAsync(BlogPost blogPost)
         {
             var existingBlogPost = await _dbContext.BlogPosts
                 .Include(x => x.Tags)
