@@ -155,5 +155,12 @@ namespace CateringOrderWebApplication.Controllers
             // show error notification
             return RedirectToAction("Edit", new { id = request.Id });
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var catering = await _cateringRepository.GetByIdAsync(id);
+            return View(catering);
+        }
     }
 }
