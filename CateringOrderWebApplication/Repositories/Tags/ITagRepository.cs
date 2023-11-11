@@ -1,17 +1,9 @@
 ﻿using CateringOrderWebApplication.Models.DomainModels.Tags;
+using CateringOrderWebApplication.Repositories.Base;
 
 namespace CateringOrderWebApplication.Repositories.Tags
 {
-    public interface ITagRepository
+    public interface ITagRepository : IEntityBaseRepository<Tag>
     {
-        Task<IEnumerable<Tag>> GetAllAsync();
-
-        Task<Tag?> GetAsync(Guid id);
-
-        Task<Tag> AddAsync(Tag newTag);
-
-        Task<Tag?> EditAsync(Tag tag);
-
-        Task<Tag?> DeleteAsync(Guid id);
     }
 }

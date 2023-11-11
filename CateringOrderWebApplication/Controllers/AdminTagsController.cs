@@ -52,7 +52,7 @@ namespace CateringOrderWebApplication.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            var tag = await _tagRepository.GetAsync(id);
+            var tag = await _tagRepository.GetByIdAsync(id);
 
             if (tag == null) return View(null);
 
@@ -76,7 +76,7 @@ namespace CateringOrderWebApplication.Controllers
                 DisplayName = request.DisplayName,
             };
 
-            var updatedTag = await _tagRepository.EditAsync(tag);
+            var updatedTag = await _tagRepository.UpdateAsync(request.Id, tag);
             if (updatedTag != null)
             {
                 // show success notification

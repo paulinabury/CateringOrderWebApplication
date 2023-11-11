@@ -1,7 +1,6 @@
 ﻿using CateringOrderWebApplication.Models.DomainModels.BlogPosts;
 using CateringOrderWebApplication.Models.DomainModels.Tags;
 using CateringOrderWebApplication.Models.ViewModels.BlogPosts;
-using CateringOrderWebApplication.Repositories.Base;
 using CateringOrderWebApplication.Repositories.BlogPosts;
 using CateringOrderWebApplication.Repositories.Tags;
 using Microsoft.AspNetCore.Authorization;
@@ -64,7 +63,7 @@ public class AdminBlogPostController : Controller
         foreach (var selectedTagId in request.SelectedTags)
         {
             var selectedTagIdGuid = Guid.Parse(selectedTagId);
-            var existingTag = await _tagRepository.GetAsync(selectedTagIdGuid);
+            var existingTag = await _tagRepository.GetByIdAsync(selectedTagIdGuid);
             if (existingTag != null)
             {
                 selectedTags.Add(existingTag);
@@ -80,7 +79,7 @@ public class AdminBlogPostController : Controller
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var blogPosts = await _blogPostRepository.GetAllAsync();
+        var blogPosts = await _blogPostRepository.GetAllAsync(t => t.Tags, c => c.Comments);
         return View(blogPosts);
     }
 
@@ -88,7 +87,7 @@ public class AdminBlogPostController : Controller
     public async Task<IActionResult> Edit(Guid id)
     {
         // Get the result from repo
-        var blogPost = await _blogPostRepository.GetAsync(id);
+        var blogPost = await _blogPostRepository.GetByIdAsync(id, p => p.Tags, c => c.Comments);
         var tagsDomainModel = await _tagRepository.GetAllAsync();
         if (blogPost != null)
         {
@@ -143,7 +142,7 @@ public class AdminBlogPostController : Controller
         {
             if (Guid.TryParse(selectedTagId, out var tagId))
             {
-                var tag = await _tagRepository.GetAsync(tagId);
+                var tag = await _tagRepository.GetByIdAsync(tagId);
                 if (tag != null)
                 {
                     selectedTags.Add(tag);
@@ -154,7 +153,7 @@ public class AdminBlogPostController : Controller
         blogPost.Tags = selectedTags;
 
         // submit to repository
-        var updatedBlogPost = await _blogPostRepository.EditAsync(blogPost);
+        var updatedBlogPost = await _blogPostRepository.UpdateAsync(request.Id, blogPost);
         if (updatedBlogPost != null)
         {
             // show success notification

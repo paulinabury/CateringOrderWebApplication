@@ -1,19 +1,10 @@
 ﻿using CateringOrderWebApplication.Models.DomainModels.BlogPosts;
+using CateringOrderWebApplication.Repositories.Base;
 
 namespace CateringOrderWebApplication.Repositories.BlogPosts
 {
-    public interface IBlogPostRepository
+    public interface IBlogPostRepository : IEntityBaseRepository<BlogPost>
     {
-        Task<IEnumerable<BlogPost>> GetAllAsync();
-
-        Task<BlogPost?> GetAsync(Guid id);
-
         Task<BlogPost?> GetAsync(string urlHandle);
-
-        Task<BlogPost> AddAsync(BlogPost newBlogPost);
-
-        Task<BlogPost?> EditAsync(BlogPost blogPost);
-
-        Task<BlogPost?> DeleteAsync(Guid id);
     }
 }

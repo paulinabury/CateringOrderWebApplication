@@ -1,5 +1,4 @@
-﻿using CateringOrderWebApplication.Models.DomainModels.BlogPosts;
-using CateringOrderWebApplication.Models.DomainModels.Caterings;
+﻿using CateringOrderWebApplication.Models.DomainModels.Caterings;
 using CateringOrderWebApplication.Models.DomainModels.Tags;
 using CateringOrderWebApplication.Models.ViewModels.Caterings;
 using CateringOrderWebApplication.Repositories.Caterings;
@@ -55,7 +54,7 @@ namespace CateringOrderWebApplication.Controllers
             foreach (var selectedTagId in request.SelectedTags)
             {
                 var selectedTagIdGuid = Guid.Parse(selectedTagId);
-                var existingTag = await _tagRepository.GetAsync(selectedTagIdGuid);
+                var existingTag = await _tagRepository.GetByIdAsync(selectedTagIdGuid);
                 if (existingTag != null)
                 {
                     selectedTags.Add(existingTag);
@@ -71,14 +70,14 @@ namespace CateringOrderWebApplication.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var caterings = await _cateringRepository.GetAllAsync();
+            var caterings = await _cateringRepository.GetAllAsync(c => c.Tags);
             return View(caterings);
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            var catering = await _cateringRepository.GetAsync(id);
+            var catering = await _cateringRepository.GetByIdAsync(id, c => c.Tags);
             var tagsDomainModel = await _tagRepository.GetAllAsync();
 
             if (catering != null)
@@ -123,7 +122,7 @@ namespace CateringOrderWebApplication.Controllers
             {
                 if (Guid.TryParse(selectedTagId, out var tagId))
                 {
-                    var tag = await _tagRepository.GetAsync(tagId);
+                    var tag = await _tagRepository.GetByIdAsync(tagId);
                     if (tag != null)
                     {
                         selectedTags.Add(tag);
@@ -133,7 +132,7 @@ namespace CateringOrderWebApplication.Controllers
 
             catering.Tags = selectedTags;
 
-            var updatedCatering = await _cateringRepository.EditAsync(catering);
+            var updatedCatering = await _cateringRepository.UpdateAsync(request.Id, catering);
             if (updatedCatering != null)
             {
                 // show success notification

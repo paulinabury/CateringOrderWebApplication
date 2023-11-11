@@ -28,13 +28,13 @@ namespace CateringOrderWebApplication.Controllers
         public async Task<IActionResult> Index()
         {
             // get all blogs
-            var existingBlogs = await _blogPostRepository.GetAllAsync();
+            var existingBlogs = await _blogPostRepository.GetAllAsync(t => t.Tags, c => c.Comments);
 
             // get all tags
             var tags = await _tagRepository.GetAllAsync();
 
             // get all caterings
-            var existingCaterings = await _cateringRepository.GetAllAsync();
+            var existingCaterings = await _cateringRepository.GetAllAsync(c => c.Tags);
 
             var model = new HomeViewModel()
             {
