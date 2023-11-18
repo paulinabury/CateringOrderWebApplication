@@ -1,6 +1,5 @@
 using CateringOrderWebApplication.Data;
 using CateringOrderWebApplication.Repositories;
-using CateringOrderWebApplication.Repositories.Base;
 using CateringOrderWebApplication.Repositories.BlogPosts;
 using CateringOrderWebApplication.Repositories.Caterings;
 using CateringOrderWebApplication.Repositories.Tags;

@@ -17,5 +17,6 @@ namespace CateringOrderWebApplication.Data
         public DbSet<BlogPostLike> BlogPostLikes { get; set; }
         public DbSet<BlogPostComment> BlogPostComments { get; set; }
         public DbSet<Catering> Caterings { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
     }
 }
