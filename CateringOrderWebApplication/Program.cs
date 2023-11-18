@@ -1,4 +1,5 @@
 using CateringOrderWebApplication.Data;
+using CateringOrderWebApplication.Data.CollaborativeFiltering;
 using CateringOrderWebApplication.Repositories;
 using CateringOrderWebApplication.Repositories.BlogPosts;
 using CateringOrderWebApplication.Repositories.Caterings;
@@ -59,6 +60,7 @@ builder.Services.AddScoped<IBlogPostLikeRepository, BlogPostLikeRepository>();
 builder.Services.AddScoped<IBlogPostCommentRepository, BlogPostCommentRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICateringRepository, CateringRepository>();
+builder.Services.AddScoped<ICollaborativeFiltering, CollaborativeFiltering>();
 
 var app = builder.Build();
 
