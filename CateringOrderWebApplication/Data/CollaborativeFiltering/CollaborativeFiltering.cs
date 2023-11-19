@@ -13,29 +13,17 @@
         {
             Dictionary<Guid, double> recommendations = new Dictionary<Guid, double>();
 
-            // Pobierz oceny dla użytkownika
+            // Pobierz oceny użytkownika
             Dictionary<Guid, int> userRatings = GetUserRatings(userId);
 
-            // Pobierz innych użytkowników, którzy ocenili te same cateringi
-            List<Guid> similarUsers = GetSimilarUsers(userId);
+            // Pobierz cateringi, które użytkownik jeszcze nie ocenił
+            List<Guid> unratedCaterings = GetUnratedCaterings(userId);
 
-            // Dla każdego podobnego użytkownika, oblicz podobieństwo i zalecenia
-            foreach (var otherUserId in similarUsers)
+            // Dla każdego cateringu, oblicz zalecenie
+            foreach (var cateringId in unratedCaterings)
             {
-                if (otherUserId == userId) continue;
-
-                double similarity = CalculatePearsonSimilarity(userId, otherUserId);
-
-                foreach (var cateringId in userRatings.Keys)
-                {
-                    if (!userRatings.ContainsKey(cateringId))
-                    {
-                        if (!recommendations.ContainsKey(cateringId))
-                            recommendations[cateringId] = 0;
-
-                        recommendations[cateringId] += similarity * userRatings[cateringId];
-                    }
-                }
+                double recommendation = CalculateItemBasedRecommendation(userId, cateringId, userRatings);
+                recommendations.Add(cateringId, recommendation);
             }
 
             return recommendations;
@@ -50,55 +38,107 @@
             return userRatings;
         }
 
-        private List<Guid> GetSimilarUsers(Guid userId)
+        private List<Guid> GetUnratedCaterings(Guid userId)
         {
+            var allCaterings = dbContext.Caterings.Select(c => c.Id).ToList();
             var userRatings = GetUserRatings(userId);
 
-            var similarUsers = dbContext.Ratings
-                .Where(r => userRatings.ContainsKey(r.CateringId) && r.UserId != userId)
-                .Select(r => r.UserId)
-                .Distinct()
-                .ToList();
+            // Wszystkie cateringi, których użytkownik jeszcze nie ocenił
+            var unratedCaterings = allCaterings.Except(userRatings.Keys).ToList();
 
-            return similarUsers;
+            return unratedCaterings;
         }
 
-        private double CalculatePearsonSimilarity(Guid userId1, Guid userId2)
+        private double CalculateItemBasedRecommendation(Guid userId, Guid cateringId, Dictionary<Guid, int> userRatings)
         {
-            Dictionary<Guid, int> ratings1 = GetUserRatings(userId1);
-            Dictionary<Guid, int> ratings2 = GetUserRatings(userId2);
+            var ratingsForCatering = dbContext.Ratings
+                .Where(r => r.CateringId == cateringId && userRatings.ContainsKey(r.UserId))
+                .ToList();
 
-            // Znajdź wspólne cateringi ocenione przez obu użytkowników
-            List<Guid> commonCaterings = new List<Guid>(ratings1.Keys);
-            commonCaterings = commonCaterings.Intersect(ratings2.Keys).ToList();
-
-            // Liczniki i mianowniki do obliczenia korelacji Pearsona
-            double sumXY = 0, sumX = 0, sumY = 0, sumX2 = 0, sumY2 = 0;
-            int n = commonCaterings.Count;
-
-            foreach (Guid cateringId in commonCaterings)
+            if (ratingsForCatering.Count == 0)
             {
-                int rating1 = ratings1[cateringId];
-                int rating2 = ratings2[cateringId];
-
-                sumXY += rating1 * rating2;
-                sumX += rating1;
-                sumY += rating2;
-                sumX2 += Math.Pow(rating1, 2);
-                sumY2 += Math.Pow(rating2, 2);
-            }
-
-            // Oblicz korelację Pearsona
-            double numerator = sumXY - sumX * sumY / n;
-            double denominator = Math.Sqrt((sumX2 - Math.Pow(sumX, 2) / n) * (sumY2 - Math.Pow(sumY, 2) / n));
-
-            if (denominator == 0)
-            {
-                // Dziel przez zero, zwróć 0 jako korelację (brak podobieństwa)
+                // Brak ocen dla tego cateringu od innych użytkowników
                 return 0;
             }
 
-            return numerator / denominator;
+            double sumSimilarities = 0;
+            double weightedSum = 0;
+
+            foreach (var ratingForCatering in ratingsForCatering)
+            {
+                double cosineSimilarity = CalculateCosineSimilarity(cateringId, ratingForCatering.CateringId);
+                double jaccardSimilarity = CalculateJaccardSimilarity(userId, ratingForCatering.UserId);
+
+                // Uwzględnij obie miary podobieństwa
+                sumSimilarities += Math.Abs(cosineSimilarity) + Math.Abs(jaccardSimilarity);
+
+                // Uwzględnij obie miary podobieństwa w obliczeniach ważonych
+                weightedSum += (cosineSimilarity + jaccardSimilarity) * userRatings[ratingForCatering.UserId];
+            }
+
+            if (sumSimilarities == 0)
+            {
+                // Brak podobieństwa między cateringami
+                return 0;
+            }
+
+            return weightedSum / sumSimilarities;
+        }
+
+        private double CalculateJaccardSimilarity(Guid userId1, Guid userId2)
+        {
+            var ratings1 = dbContext.Ratings
+                .Where(r => r.UserId == userId1)
+                .Select(r => r.CateringId)
+                .ToHashSet();
+
+            var ratings2 = dbContext.Ratings
+                .Where(r => r.UserId == userId2)
+                .Select(r => r.CateringId)
+                .ToHashSet();
+
+            var intersection = ratings1.Intersect(ratings2).Count();
+            var union = ratings1.Union(ratings2).Count();
+
+            if (union == 0)
+            {
+                // Brak ocen dla obu użytkowników
+                return 0;
+            }
+
+            return (double)intersection / union;
+        }
+
+        private double CalculateCosineSimilarity(Guid cateringId1, Guid cateringId2)
+        {
+            var ratings1 = dbContext.Ratings
+                .Where(r => r.CateringId == cateringId1)
+                .ToDictionary(r => r.UserId, r => r.Rate);
+
+            var ratings2 = dbContext.Ratings
+                .Where(r => r.CateringId == cateringId2)
+                .ToDictionary(r => r.UserId, r => r.Rate);
+
+            var commonUsers = ratings1.Keys.Intersect(ratings2.Keys).ToList();
+
+            double dotProduct = 0;
+            double magnitude1 = 0;
+            double magnitude2 = 0;
+
+            foreach (var userId in commonUsers)
+            {
+                dotProduct += ratings1[userId] * ratings2[userId];
+                magnitude1 += Math.Pow(ratings1[userId], 2);
+                magnitude2 += Math.Pow(ratings2[userId], 2);
+            }
+
+            if (magnitude1 == 0 || magnitude2 == 0)
+            {
+                // Brak ocen dla wspólnych użytkowników
+                return 0;
+            }
+
+            return dotProduct / (Math.Sqrt(magnitude1) * Math.Sqrt(magnitude2));
         }
     }
 }
